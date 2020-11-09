@@ -23,6 +23,8 @@ class shortenerLinks
 
         $this->connectToDB();
 
+        $link = $this->db->real_escape_string($link);// Экранирование
+
         $query = "SELECT 'fullUrl' FROM `links` WHERE 'url'='" . $link . "'"; // Готовим запрос
 
         if ($res = $this->db->query($query)) { // Выполяем запрос
@@ -53,6 +55,8 @@ class shortenerLinks
                 $result.=$randomAlph[$last];
             }
 
+            $link = $this->db->real_escape_string($link);// Экранирование
+
             $query = "INSERT INTO `links` (`url`, `fullUrl`) VALUES ('".$result."', '".$link."')";
 
             $this->db->query($query);
@@ -66,6 +70,8 @@ class shortenerLinks
 
     public function checkURLExist($link)
     {
+        $link = $this->db->real_escape_string($link);// Экранирование
+
         $query = "SELECT 'url' FROM `links` WHERE 'url'='" . $link . "'"; // Готовим запрос
 
         if ($res = $this->db->query($query)) { // Выполяем запрос
